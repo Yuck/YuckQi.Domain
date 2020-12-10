@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using YuckQi.Domain.Application.Abstract;
 using YuckQi.Domain.Entities.Abstract;
 
-namespace YuckQi.Domain.RequestResults
+namespace YuckQi.Domain.Application.Results
 {
-    public class Page<TEntity, TKey> where TEntity : class, IEntity<TKey> where TKey : struct
+    public class Page<TEntity, TKey> : IPage where TEntity : class, IEntity<TKey> where TKey : struct
     {
         #region Properties
 
         public IReadOnlyCollection<TEntity> Items { get; }
-        public int PageNumber { get; }
-        public int PageSize { get; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
         public int TotalCount { get; }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace YuckQi.Domain.RequestResults
+namespace YuckQi.Domain.Application.Results
 {
     public class Result
     {

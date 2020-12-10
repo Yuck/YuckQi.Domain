@@ -1,4 +1,4 @@
-﻿namespace YuckQi.Domain.RequestResults
+﻿namespace YuckQi.Domain.Application.Results
 {
     public enum ResultType
     {
