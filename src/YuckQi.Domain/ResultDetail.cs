@@ -1,6 +1,6 @@
 ﻿namespace YuckQi.Domain
 {
-    internal class ResultDetail
+    public class ResultDetail
     {
         #region Properties
 

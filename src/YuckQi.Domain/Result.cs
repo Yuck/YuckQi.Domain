@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace YuckQi.Domain
 {
-    internal class Result
+    public class Result
     {
         #region Properties
 
@@ -14,7 +14,7 @@ namespace YuckQi.Domain
         #endregion
     }
 
-    internal class Result<T> : Result
+    public class Result<T> : Result
     {
         #region Properties
 

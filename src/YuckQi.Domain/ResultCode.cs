@@ -1,6 +1,6 @@
 ﻿namespace YuckQi.Domain
 {
-    internal readonly struct ResultCode
+    public readonly struct ResultCode
     {
         #region Private Members
 

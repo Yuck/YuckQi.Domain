@@ -1,6 +1,6 @@
 ﻿namespace YuckQi.Domain
 {
-    internal enum ResultType
+    public enum ResultType
     {
         Unknown = 0,
         Warning = 1,
