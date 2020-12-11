@@ -2,7 +2,7 @@
 using YuckQi.Domain.Application.Abstract;
 using YuckQi.Domain.Entities.Abstract;
 
-namespace YuckQi.Domain.Application.Results
+namespace YuckQi.Domain.Application.Queries.Results
 {
     public class Page<TEntity, TKey> : IPage where TEntity : class, IEntity<TKey> where TKey : struct
     {

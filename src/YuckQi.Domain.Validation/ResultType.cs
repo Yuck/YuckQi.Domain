@@ -1,4 +1,4 @@
-﻿namespace YuckQi.Domain.Application.Results
+﻿namespace YuckQi.Domain.Validation
 {
     public enum ResultType
     {
