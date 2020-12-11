@@ -1,4 +1,4 @@
-﻿namespace YuckQi.Domain.Application.Results
+﻿namespace YuckQi.Domain.Validation
 {
     public readonly struct ResultCode
     {
@@ -15,6 +15,13 @@
         {
             return resultCode._code;
         }
+
+        #endregion
+
+
+        #region Constants
+
+        public static readonly ResultCode InvalidRequestDetail = new ResultCode("invalidRequestDetail");
 
         #endregion
 
