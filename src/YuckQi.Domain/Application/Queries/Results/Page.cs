@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using YuckQi.Domain.Application.Abstract;
-using YuckQi.Domain.Entities.Abstract;
 
 namespace YuckQi.Domain.Application.Queries.Results
 {
@@ -25,11 +24,11 @@ namespace YuckQi.Domain.Application.Queries.Results
         #endregion
     }
 
-    public class Page<TEntity, TKey> : Page where TEntity : class, IEntity<TKey> where TKey : struct
+    public class Page<T> : Page where T : class
     {
         #region Properties
 
-        public IReadOnlyCollection<TEntity> Items { get; }
+        public IReadOnlyCollection<T> Items { get; }
         public int TotalCount { get; }
 
         #endregion
@@ -37,9 +36,9 @@ namespace YuckQi.Domain.Application.Queries.Results
 
         #region Constructors
 
-        public Page(IReadOnlyCollection<TEntity> items, int total, int number, int size) : base(number, size)
+        public Page(IReadOnlyCollection<T> items, int total, int number, int size) : base(number, size)
         {
-            Items = items ?? new List<TEntity>();
+            Items = items ?? new List<T>();
             TotalCount = total;
         }
 
