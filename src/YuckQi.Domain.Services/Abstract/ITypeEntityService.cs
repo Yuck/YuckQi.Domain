@@ -6,7 +6,7 @@ using YuckQi.Domain.ValueObjects;
 
 namespace YuckQi.Domain.Services.Abstract
 {
-    public interface ITypeEntityService<T, in TKey> where T : TypeEntityBase<TKey> where TKey : struct
+    public interface ITypeEntityService<T, in TKey> where T : ITypeEntity<TKey> where TKey : struct
     {
         Task<Result<T>> CreateAsync(T entity);
         Task<Result<T>> GetAsync(TKey key);
