@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using YuckQi.Domain.Application.Queries.Results;
-using YuckQi.Domain.Entities.Types;
+using YuckQi.Domain.Entities.Types.Abstract;
 using YuckQi.Domain.Services.Models;
 using YuckQi.Domain.Validation;
+using YuckQi.Domain.ValueObjects;
 
 namespace YuckQi.Domain.Services.Abstract
 {

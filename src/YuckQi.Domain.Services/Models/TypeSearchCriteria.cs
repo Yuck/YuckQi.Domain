@@ -1,4 +1,4 @@
-﻿using YuckQi.Domain.Application.Abstract;
+﻿using YuckQi.Domain.ValueObjects.Abstract;
 
 namespace YuckQi.Domain.Services.Models
 {

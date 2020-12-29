@@ -1,4 +1,4 @@
-﻿namespace YuckQi.Domain.Application.Abstract
+﻿namespace YuckQi.Domain.ValueObjects.Abstract
 {
     public interface IPage
     {
