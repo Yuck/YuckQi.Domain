@@ -24,7 +24,7 @@ namespace YuckQi.Domain.ValueObjects
         #endregion
     }
 
-    public readonly struct Page<T> : IPage
+    public readonly struct Page<T> : IPage<T>
     {
         #region Properties
 
