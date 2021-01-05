@@ -4,8 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin J Lambert</Authors>
-    <Version>0.4.1</Version>
+    <Version>0.4.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>A .NET library for bootstrapping a domain model project.</Description>
   </PropertyGroup>
 
   <ItemGroup>
