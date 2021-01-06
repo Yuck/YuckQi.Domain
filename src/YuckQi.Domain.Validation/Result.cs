@@ -35,6 +35,10 @@ namespace YuckQi.Domain.Validation
 
         #region Constructors
 
+        public Result(ResultDetail detail) : base(new List<ResultDetail> { detail })
+        {
+        }
+
         public Result(T payload, IReadOnlyCollection<ResultDetail> detail = null) : base(detail)
         {
             Payload = payload;
