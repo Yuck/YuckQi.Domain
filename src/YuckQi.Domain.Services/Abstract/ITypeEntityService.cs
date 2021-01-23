@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using YuckQi.Domain.Aspects.Abstract;
+using YuckQi.Domain.Entities.Abstract;
 using YuckQi.Domain.Services.Models;
 using YuckQi.Domain.Validation;
 using YuckQi.Domain.ValueObjects.Abstract;
 
 namespace YuckQi.Domain.Services.Abstract
 {
-    public interface ITypeEntityService<TTypeEntity, in TKey> where TTypeEntity : IType
+    public interface ITypeEntityService<TTypeEntity, in TKey> where TTypeEntity : IEntity<TKey>, IType where TKey : struct
     {
         Task<Result<TTypeEntity>> CreateAsync(TTypeEntity entity);
         Task<Result<TTypeEntity>> GetAsync(Guid identifier);
