@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin J Lambert</Authors>
-    <Version>0.4.6</Version>
+    <Version>0.4.7</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET library providing domain validation fundamentals.</Description>
   </PropertyGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="9.3.0" />
+    <PackageReference Include="FluentValidation" Version="9.4.0" />
   </ItemGroup>
 
 </Project>
