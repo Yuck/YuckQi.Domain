@@ -2,12 +2,20 @@
 {
     public class ResultDetail
     {
+        #region Private Members
+
+        private readonly ResultCode _code;
+
+        #endregion
+
+
         #region Properties
 
-        public ResultCode Code { get; }
         public ResultMessage Message { get; }
         public string Property { get; }
         public ResultType Type { get; }
+
+        public string Code => _code;
 
         #endregion
 
@@ -16,7 +24,8 @@
 
         public ResultDetail(ResultCode code, ResultMessage message, string property = null, ResultType type = ResultType.Error)
         {
-            Code = code;
+            _code = code;
+
             Message = message;
             Property = property;
             Type = type;

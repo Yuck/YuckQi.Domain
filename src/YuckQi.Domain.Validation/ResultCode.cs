@@ -21,7 +21,7 @@
 
         #region Constants
 
-        public static readonly ResultCode InvalidRequestDetail = new ResultCode("invalidRequestDetail");
+        public static readonly ResultCode InvalidRequestDetail = new ResultCode(nameof(InvalidRequestDetail));
 
         #endregion
 
