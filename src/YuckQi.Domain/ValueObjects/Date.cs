@@ -31,93 +31,93 @@ namespace YuckQi.Domain.ValueObjects
     [Serializable]
     public struct Date : IComparable, IFormattable, ISerializable, IComparable<Date>, IEquatable<Date>
     {
-        private DateTime _dt;
+        private DateTime _value;
 
         public static readonly Date MaxValue = new Date(DateTime.MaxValue);
         public static readonly Date MinValue = new Date(DateTime.MinValue);
 
         public Date(Int32 year, Int32 month, Int32 day)
         {
-            _dt = new DateTime(year, month, day);
+            _value = new DateTime(year, month, day);
         }
 
         public Date(DateTime dateTime)
         {
-            _dt = dateTime.AddTicks(-dateTime.Ticks % TimeSpan.TicksPerDay);
+            _value = dateTime.AddTicks(-dateTime.Ticks % TimeSpan.TicksPerDay);
         }
 
         public Date(DateTimeOffset dateTimeOffset) : this(dateTimeOffset.DateTime) { }
 
         private Date(SerializationInfo info, StreamingContext context)
         {
-            _dt = DateTime.FromFileTime(info.GetInt64("ticks"));
+            _value = DateTime.FromFileTime(info.GetInt64("ticks"));
         }
 
-        public static TimeSpan operator -(Date d1, Date d2) => d1._dt - d2._dt;
+        public static TimeSpan operator -(Date d1, Date d2) => d1._value - d2._value;
 
-        public static Date operator -(Date d, TimeSpan t) => new Date(d._dt - t);
+        public static Date operator -(Date d, TimeSpan t) => new Date(d._value - t);
 
-        public static Boolean operator !=(Date d1, Date d2) => d1._dt != d2._dt;
+        public static Boolean operator !=(Date d1, Date d2) => d1._value != d2._value;
 
-        public static Date operator +(Date d, TimeSpan t) => new Date(d._dt + t);
+        public static Date operator +(Date d, TimeSpan t) => new Date(d._value + t);
 
-        public static Boolean operator <(Date d1, Date d2) => d1._dt < d2._dt;
+        public static Boolean operator <(Date d1, Date d2) => d1._value < d2._value;
 
-        public static Boolean operator <=(Date d1, Date d2) => d1._dt <= d2._dt;
+        public static Boolean operator <=(Date d1, Date d2) => d1._value <= d2._value;
 
-        public static Boolean operator ==(Date d1, Date d2) => d1._dt == d2._dt;
+        public static Boolean operator ==(Date d1, Date d2) => d1._value == d2._value;
 
-        public static Boolean operator >(Date d1, Date d2) => d1._dt > d2._dt;
+        public static Boolean operator >(Date d1, Date d2) => d1._value > d2._value;
 
-        public static Boolean operator >=(Date d1, Date d2) => d1._dt >= d2._dt;
+        public static Boolean operator >=(Date d1, Date d2) => d1._value >= d2._value;
 
-        public static implicit operator DateTime(Date d) => d._dt;
+        public static implicit operator DateTime(Date d) => d._value;
 
         public static explicit operator Date(DateTime d) => new Date(d);
 
-        public static implicit operator DateTimeOffset(Date d) => d._dt;
+        public static implicit operator DateTimeOffset(Date d) => d._value;
 
         public static explicit operator Date(DateTimeOffset d) => new Date(d);
 
-        public Int32 Day => _dt.Day;
+        public Int32 Day => _value.Day;
 
-        public DayOfWeek DayOfWeek => _dt.DayOfWeek;
+        public DayOfWeek DayOfWeek => _value.DayOfWeek;
 
-        public Int32 DayOfYear => _dt.DayOfYear;
+        public Int32 DayOfYear => _value.DayOfYear;
 
-        public Int32 Month => _dt.Month;
+        public Int32 Month => _value.Month;
 
         public static Date Today => new Date(DateTime.Today);
 
-        public Int32 Year => _dt.Year;
+        public Int32 Year => _value.Year;
 
-        public Int64 Ticks => _dt.Ticks;
+        public Int64 Ticks => _value.Ticks;
 
-        public Date AddDays(Int32 value) => new Date(_dt.AddDays(value));
+        public Date AddDays(Int32 value) => new Date(_value.AddDays(value));
 
-        public Date AddMonths(Int32 value) => new Date(_dt.AddMonths(value));
+        public Date AddMonths(Int32 value) => new Date(_value.AddMonths(value));
 
-        public Date AddYears(Int32 value) => new Date(_dt.AddYears(value));
+        public Date AddYears(Int32 value) => new Date(_value.AddYears(value));
 
         public static Int32 Compare(Date d1, Date d2) => d1.CompareTo(d2);
 
-        public Int32 CompareTo(Date value) => _dt.CompareTo(value._dt);
+        public Int32 CompareTo(Date value) => _value.CompareTo(value._value);
 
-        public Int32 CompareTo(Object value) => _dt.CompareTo(value);
+        public Int32 CompareTo(Object value) => _value.CompareTo(value);
 
         public static Int32 DaysInMonth(Int32 year, Int32 month) => DateTime.DaysInMonth(year, month);
 
-        public Boolean Equals(Date value) => _dt.Equals(value._dt);
+        public Boolean Equals(Date value) => _value.Equals(value._value);
 
-        public override Boolean Equals(Object value) => value is Date date && _dt.Equals(date._dt);
+        public override Boolean Equals(Object value) => value is Date date && _value.Equals(date._value);
 
-        public override Int32 GetHashCode() => _dt.GetHashCode();
+        public override Int32 GetHashCode() => _value.GetHashCode();
 
-        public static Boolean Equals(Date d1, Date d2) => d1._dt.Equals(d2._dt);
+        public static Boolean Equals(Date d1, Date d2) => d1._value.Equals(d2._value);
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("ticks", _dt.Ticks);
+            info.AddValue("ticks", _value.Ticks);
         }
 
         public static Boolean IsLeapYear(Int32 year) => DateTime.IsLeapYear(year);
@@ -138,27 +138,27 @@ namespace YuckQi.Domain.ValueObjects
 
         public Date Subtract(TimeSpan value) => this - value;
 
-        public static Date ToDate(DateTime dt) => new Date(dt);
+        public static Date ToDate(DateTime dateTime) => new Date(dateTime);
 
-        public static Date ToDate(DateTimeOffset dto) => new Date(dto);
+        public static Date ToDate(DateTimeOffset dateTimeOffset) => new Date(dateTimeOffset);
 
-        public String ToLongString() => _dt.ToLongDateString();
+        public String ToLongString() => _value.ToLongDateString();
 
-        public String ToShortString() => _dt.ToShortDateString();
+        public String ToShortString() => _value.ToShortDateString();
 
         public override String ToString() => ToShortString();
 
-        public String ToString(IFormatProvider provider) => _dt.ToString(provider);
+        public String ToString(IFormatProvider provider) => _value.ToString(provider);
 
         public String ToString(String format)
         {
             if (format == "O" || format == "o" || format == "s")
                 return ToString("yyyy-MM-dd");
 
-            return _dt.ToString(format);
+            return _value.ToString(format);
         }
 
-        public String ToString(String format, IFormatProvider provider) => _dt.ToString(format, provider);
+        public String ToString(String format, IFormatProvider provider) => _value.ToString(format, provider);
 
         public static Boolean TryParse(String s, out Date result)
         {
