@@ -1,18 +1,20 @@
-﻿namespace YuckQi.Domain.Validation
+﻿using System;
+
+namespace YuckQi.Domain.Validation
 {
     public readonly struct ResultMessage
     {
         #region Properties
 
-        public string Id { get; }
-        public string Text { get; }
+        public String Id { get; }
+        public String Text { get; }
 
         #endregion
 
 
         #region Constructors
 
-        public ResultMessage(string id, string text = null)
+        public ResultMessage(String id, String text = null)
         {
             Id = id;
             Text = text;

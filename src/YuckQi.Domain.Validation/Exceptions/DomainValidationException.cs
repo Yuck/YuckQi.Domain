@@ -7,7 +7,7 @@ namespace YuckQi.Domain.Validation.Exceptions
     {
         #region Constants
 
-        private const string DefaultErrorMessage = "Something went wrong.";
+        private const String DefaultErrorMessage = "Something went wrong.";
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace YuckQi.Domain.Validation.Exceptions
 
         #region Supporting Methods
 
-        private static string GetErrorMessage(Result result)
+        private static String GetErrorMessage(Result result)
         {
             if (result == null)
                 return DefaultErrorMessage;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace YuckQi.Domain.Validation
@@ -9,7 +10,7 @@ namespace YuckQi.Domain.Validation
 
         public IReadOnlyCollection<ResultDetail> Detail { get; }
 
-        public bool IsValid => Detail == null || Detail.All(t => t.Type != ResultType.Error);
+        public Boolean IsValid => Detail == null || Detail.All(t => t.Type != ResultType.Error);
 
         #endregion
 
@@ -35,9 +36,7 @@ namespace YuckQi.Domain.Validation
 
         #region Constructors
 
-        public Result(ResultDetail detail) : base(new List<ResultDetail> { detail })
-        {
-        }
+        public Result(ResultDetail detail) : base(new List<ResultDetail> {detail}) { }
 
         public Result(T payload, IReadOnlyCollection<ResultDetail> detail = null) : base(detail)
         {

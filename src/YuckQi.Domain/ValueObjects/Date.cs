@@ -29,9 +29,9 @@ using System.Runtime.Serialization;
 namespace YuckQi.Domain.ValueObjects
 {
     [Serializable]
-    public struct Date : IComparable, IFormattable, ISerializable, IComparable<Date>, IEquatable<Date>
+    public readonly struct Date : IComparable, IFormattable, ISerializable, IComparable<Date>, IEquatable<Date>
     {
-        private DateTime _value;
+        private readonly DateTime _value;
 
         public static readonly Date MaxValue = new Date(DateTime.MaxValue);
         public static readonly Date MinValue = new Date(DateTime.MinValue);

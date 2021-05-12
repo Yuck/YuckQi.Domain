@@ -1,4 +1,5 @@
-﻿using YuckQi.Domain.Entities.Abstract;
+﻿using System;
+using YuckQi.Domain.Entities.Abstract;
 
 namespace YuckQi.Domain.Entities.MultiTenant.Abstract
 {
@@ -6,6 +7,6 @@ namespace YuckQi.Domain.Entities.MultiTenant.Abstract
     {
         TTenantKey TenantId { get; set; }
 
-        bool IsValidTenant(TTenantKey? tenantId);
+        Boolean IsValidTenant(TTenantKey? tenantId);
     }
 }

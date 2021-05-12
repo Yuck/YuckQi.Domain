@@ -1,11 +1,12 @@
-﻿using YuckQi.Domain.ValueObjects.Abstract;
+﻿using System;
+using YuckQi.Domain.ValueObjects.Abstract;
 
 namespace YuckQi.Domain.Services.Models
 {
     public class TypeSearchCriteria : IPage
     {
-        public string Name { get; set; }
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public String Name { get; set; }
+        public Int32 PageNumber { get; set; }
+        public Int32 PageSize { get; set; }
     }
 }

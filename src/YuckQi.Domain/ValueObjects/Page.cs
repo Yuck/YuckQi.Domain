@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YuckQi.Domain.ValueObjects.Abstract;
 
 namespace YuckQi.Domain.ValueObjects
@@ -7,15 +8,15 @@ namespace YuckQi.Domain.ValueObjects
     {
         #region Properties
 
-        public int PageNumber { get; }
-        public int PageSize { get; }
+        public Int32 PageNumber { get; }
+        public Int32 PageSize { get; }
 
         #endregion
 
 
         #region Constructors
 
-        public Page(int page, int size)
+        public Page(Int32 page, Int32 size)
         {
             PageNumber = page;
             PageSize = size;
@@ -29,16 +30,16 @@ namespace YuckQi.Domain.ValueObjects
         #region Properties
 
         public IReadOnlyCollection<T> Items { get; }
-        public int PageNumber { get; }
-        public int PageSize { get; }
-        public int TotalCount { get; }
+        public Int32 PageNumber { get; }
+        public Int32 PageSize { get; }
+        public Int32 TotalCount { get; }
 
         #endregion
 
 
         #region Constructors
 
-        public Page(IReadOnlyCollection<T> items, int total, int page, int size)
+        public Page(IReadOnlyCollection<T> items, Int32 total, Int32 page, Int32 size)
         {
             Items = items ?? new List<T>();
             PageNumber = page;

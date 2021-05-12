@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace YuckQi.Domain.ValueObjects.Abstract
 {
     public interface IPage
     {
-        int PageNumber { get; }
-        int PageSize { get; }
+        Int32 PageNumber { get; }
+        Int32 PageSize { get; }
     }
 
     public interface IPage<out T> : IPage
     {
         IReadOnlyCollection<T> Items { get; }
-        int TotalCount { get; }
+        Int32 TotalCount { get; }
     }
 }
