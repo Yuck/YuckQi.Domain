@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace YuckQi.Domain.Validation
+namespace YuckQi.Domain.Validation.Exceptions
 {
     public class DomainValidationException : ApplicationException
     {
