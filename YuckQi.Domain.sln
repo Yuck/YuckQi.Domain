@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YuckQi.Domain", "src\YuckQi.Domain\YuckQi.Domain.csproj", "{D1B3FB54-0212-41AE-AB29-30AD97269375}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YuckQi.Domain.Validation", "src\YuckQi.Domain.Validation\YuckQi.Domain.Validation.csproj", "{A620A320-F2E9-43A7-858C-9BAF1D76CD8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuckQi.Domain.Services", "src\YuckQi.Domain.Services\YuckQi.Domain.Services.csproj", "{0F24D228-C35A-4DB0-BD64-3E33A3D02B02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YuckQi.Domain.Services", "src\YuckQi.Domain.Services\YuckQi.Domain.Services.csproj", "{0F24D228-C35A-4DB0-BD64-3E33A3D02B02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuckQi.Domain.Validation.UnitTests", "test\YuckQi.Domain.Validation.UnitTests\YuckQi.Domain.Validation.UnitTests.csproj", "{153AC057-A111-4A2D-950B-8FB331A1124E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B0AF740-A98C-402C-BE34-FD3E95384BA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{4012738B-4956-416F-AC49-28E5F00297B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,17 @@ Global
 		{0F24D228-C35A-4DB0-BD64-3E33A3D02B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F24D228-C35A-4DB0-BD64-3E33A3D02B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F24D228-C35A-4DB0-BD64-3E33A3D02B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153AC057-A111-4A2D-950B-8FB331A1124E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153AC057-A111-4A2D-950B-8FB331A1124E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153AC057-A111-4A2D-950B-8FB331A1124E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153AC057-A111-4A2D-950B-8FB331A1124E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{153AC057-A111-4A2D-950B-8FB331A1124E} = {4012738B-4956-416F-AC49-28E5F00297B3}
+		{4012738B-4956-416F-AC49-28E5F00297B3} = {5B0AF740-A98C-402C-BE34-FD3E95384BA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B79E244-ED98-4357-89F3-0E9586941E8B}

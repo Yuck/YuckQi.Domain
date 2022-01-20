@@ -10,7 +10,7 @@ namespace YuckQi.Domain.Validation
 
         public IReadOnlyCollection<ResultDetail> Detail { get; }
 
-        public Boolean IsValid => Detail == null || Detail.All(t => t.Type != ResultType.Error);
+        public Boolean IsValid => Detail != null && Detail.Any(t => t.Type == ResultType.Error);
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace YuckQi.Domain.Validation
 
         public Result(IReadOnlyCollection<ResultDetail> detail)
         {
-            Detail = detail;
+            Detail = detail ?? Array.Empty<ResultDetail>();
         }
 
         #endregion
@@ -36,12 +36,25 @@ namespace YuckQi.Domain.Validation
 
         #region Constructors
 
-        public Result(ResultDetail detail) : base(new List<ResultDetail> {detail}) { }
+        public Result(ResultDetail detail) : base(new List<ResultDetail> { detail }) { }
 
         public Result(T payload, IReadOnlyCollection<ResultDetail> detail = null) : base(detail)
         {
             Payload = payload;
         }
+
+        #endregion
+
+
+        #region Public Methods
+
+        public static Result<T> ConstraintViolation<TKey>(TKey key, String message = null) where TKey : struct => new Result<T>(ResultDetail.ConstraintViolation<T, TKey>(key, message));
+
+        public Boolean IsConstraintConflict => Detail.Any(t => String.Equals(t.Code, ResultCode.ConstraintViolation));
+
+        public Boolean IsNotFound => Detail.Any(t => String.Equals(t.Code, ResultCode.NotFound));
+
+        public static Result<T> NotFound<TKey>(TKey key, String message = null) where TKey : struct => new Result<T>(ResultDetail.NotFound<T, TKey>(key, message));
 
         #endregion
     }

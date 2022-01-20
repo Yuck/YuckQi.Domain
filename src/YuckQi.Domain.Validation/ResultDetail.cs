@@ -11,6 +11,14 @@ namespace YuckQi.Domain.Validation
         #endregion
 
 
+        #region Constants
+
+        public static ResultDetail ConstraintViolation<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultDetail(ResultCode.ConstraintViolation, ResultMessage.ConstraintConflict<T, TKey>(key, message));
+        public static ResultDetail NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultDetail(ResultCode.NotFound, ResultMessage.NotFound<T, TKey>(key, message));
+
+        #endregion
+
+
         #region Properties
 
         public ResultMessage Message { get; }

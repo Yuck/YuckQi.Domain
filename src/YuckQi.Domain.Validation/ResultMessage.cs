@@ -21,5 +21,13 @@ namespace YuckQi.Domain.Validation
         }
 
         #endregion
+
+
+        #region Public Methods
+
+        public static ResultMessage ConstraintConflict<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultMessage($"{ResultCode.ConstraintViolation.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' already exists.");
+        public static ResultMessage NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultMessage($"{ResultCode.NotFound.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' could not be found.");
+
+        #endregion
     }
 }

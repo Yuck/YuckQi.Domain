@@ -20,7 +20,9 @@ namespace YuckQi.Domain.Validation
 
         #region Constants
 
+        public static readonly ResultCode ConstraintViolation = new ResultCode(nameof(ConstraintViolation));
         public static readonly ResultCode InvalidRequestDetail = new ResultCode(nameof(InvalidRequestDetail));
+        public static readonly ResultCode NotFound = new ResultCode(nameof(NotFound));
 
         #endregion
 
