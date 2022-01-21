@@ -10,10 +10,10 @@ public class ResultCodeTests
     [Test]
     public void ResultCode_WithSameCode_HasSameHashCode()
     {
-        var a = new ResultCode("test");
-        var hashCodeA = a.GetHashCode();
-        var b = new ResultCode("test");
-        var hashCodeB = b.GetHashCode();
+        var resultCodeA = new ResultCode("test");
+        var hashCodeA = resultCodeA.GetHashCode();
+        var resultCodeB = new ResultCode("test");
+        var hashCodeB = resultCodeB.GetHashCode();
 
         Assert.AreEqual(hashCodeA, hashCodeB);
     }

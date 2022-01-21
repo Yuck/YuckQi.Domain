@@ -10,7 +10,7 @@ namespace YuckQi.Domain.Validation
 
         public IReadOnlyCollection<ResultDetail> Detail { get; }
 
-        public Boolean IsValid => Detail != null && Detail.Any(t => t.Type == ResultType.Error);
+        public Boolean IsValid => Detail.All(t => t.Type != ResultType.Error);
 
         #endregion
 
