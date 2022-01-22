@@ -10,6 +10,16 @@ public class ResultTests
     public void Setup() { }
 
     [Test]
+    public void Result_NotFound_HasNotFoundResultCode()
+    {
+        var detail = new List<ResultDetail> { ResultDetail.NotFound<String, Int32>(1), ResultDetail.ConstraintViolation<String, Int32>(1) }.AsReadOnly();
+        var result = new Result<String>(detail);
+        var hasNotFoundResultCode = result.HasResultCode(ResultCode.NotFound);
+
+        Assert.IsTrue(hasNotFoundResultCode);
+    }
+
+    [Test]
     public void Result_WithErrors_IsNotValid()
     {
         var detail = new List<ResultDetail> { new(new ResultCode("test"), new ResultMessage("id")) };

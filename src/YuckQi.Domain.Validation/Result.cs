@@ -36,7 +36,9 @@ namespace YuckQi.Domain.Validation
 
         #region Constructors
 
-        public Result(ResultDetail detail) : base(new List<ResultDetail> { detail }) { }
+        public Result(ResultDetail detail) : this(new List<ResultDetail> { detail }) { }
+
+        public Result(IReadOnlyCollection<ResultDetail> detail) : base(detail) { }
 
         public Result(T payload, IReadOnlyCollection<ResultDetail> detail = null) : base(detail)
         {
@@ -50,9 +52,7 @@ namespace YuckQi.Domain.Validation
 
         public static Result<T> ConstraintViolation<TKey>(TKey key, String message = null) where TKey : struct => new Result<T>(ResultDetail.ConstraintViolation<T, TKey>(key, message));
 
-        public Boolean IsConstraintViolation => Detail.Any(t => String.Equals(t.Code, ResultCode.ConstraintViolation));
-
-        public Boolean IsNotFound => Detail.Any(t => String.Equals(t.Code, ResultCode.NotFound));
+        public Boolean HasResultCode(ResultCode resultCode) => Detail.Any(t => t.Code == resultCode);
 
         public static Result<T> NotFound<TKey>(TKey key, String message = null) where TKey : struct => new Result<T>(ResultDetail.NotFound<T, TKey>(key, message));
 
