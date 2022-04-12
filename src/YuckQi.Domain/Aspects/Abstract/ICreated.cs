@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace YuckQi.Domain.Aspects.Abstract
+namespace YuckQi.Domain.Aspects.Abstract;
+
+public interface ICreated
 {
-    public interface ICreated
-    {
-        DateTime CreationMomentUtc { get; set; }
-    }
+    DateTime CreationMomentUtc { get; set; }
 }

@@ -1,7 +1,6 @@
-﻿namespace YuckQi.Domain.Entities.Abstract
+﻿namespace YuckQi.Domain.Entities.Abstract;
+
+public interface IEntity<TKey> where TKey : struct
 {
-    public interface IEntity<TKey> where TKey : struct
-    {
-        TKey Key { get; set; }
-    }
+    TKey Key { get; set; }
 }
