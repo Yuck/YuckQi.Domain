@@ -3,9 +3,9 @@ using YuckQi.Domain.Entities.Abstract;
 
 namespace YuckQi.Domain.Entities.MultiTenant.Abstract;
 
-public abstract class MultiTenantEntityBase<TKey, TTenantKey> : EntityBase<TKey>, IMultiTenantEntity<TKey, TTenantKey> where TKey : struct where TTenantKey : struct
+public abstract class MultiTenantEntityBase<TIdentifier, TTenantIdentifier> : EntityBase<TIdentifier>, IMultiTenantEntity<TIdentifier, TTenantIdentifier> where TIdentifier : struct where TTenantIdentifier : struct
 {
-    public TTenantKey TenantId { get; set; }
+    public TTenantIdentifier TenantIdentifier { get; set; }
 
-    public Boolean IsValidTenant(TTenantKey? tenantId) => TenantId.Equals(tenantId);
+    public Boolean IsValidTenant(TTenantIdentifier? tenantIdentifier) => TenantIdentifier.Equals(tenantIdentifier);
 }

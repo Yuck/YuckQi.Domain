@@ -50,11 +50,11 @@ public class Result<T> : Result
 
     #region Public Methods
 
-    public static Result<T> ConstraintViolation<TKey>(TKey key, String message = null) where TKey : struct => new(ResultDetail.ConstraintViolation<T, TKey>(key, message));
+    public static Result<T> ConstraintViolation<TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultDetail.ConstraintViolation<T, TIdentifier>(identifier, message));
 
     public Boolean HasResultCode(ResultCode resultCode) => Detail.Any(t => t.Code == resultCode);
 
-    public static Result<T> NotFound<TKey>(TKey key, String message = null) where TKey : struct => new(ResultDetail.NotFound<T, TKey>(key, message));
+    public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultDetail.NotFound<T, TIdentifier>(identifier, message));
 
     #endregion
 }

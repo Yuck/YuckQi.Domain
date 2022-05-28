@@ -1,6 +1,6 @@
 ﻿namespace YuckQi.Domain.Entities.Abstract;
 
-public abstract class EntityBase<TKey> : IEntity<TKey> where TKey : struct
+public abstract class EntityBase<TIdentifier> : IEntity<TIdentifier> where TIdentifier : struct
 {
-    public TKey Key { get; set; }
+    public TIdentifier Identifier { get; set; }
 }

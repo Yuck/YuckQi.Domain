@@ -25,8 +25,8 @@ public readonly struct ResultMessage
 
     #region Public Methods
 
-    public static ResultMessage ConstraintConflict<T, TKey>(TKey key, String message = null) where TKey : struct => new($"{ResultCode.ConstraintViolation.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' already exists.");
-    public static ResultMessage NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new($"{ResultCode.NotFound.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' could not be found.");
+    public static ResultMessage ConstraintConflict<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new($"{ResultCode.ConstraintViolation.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{identifier}' already exists.");
+    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new($"{ResultCode.NotFound.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
 
     #endregion
 }

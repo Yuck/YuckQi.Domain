@@ -13,8 +13,8 @@ public class ResultDetail
 
     #region Constants
 
-    public static ResultDetail ConstraintViolation<T, TKey>(TKey key, String message = null) where TKey : struct => new(ResultCode.ConstraintViolation, ResultMessage.ConstraintConflict<T, TKey>(key, message));
-    public static ResultDetail NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new(ResultCode.NotFound, ResultMessage.NotFound<T, TKey>(key, message));
+    public static ResultDetail ConstraintViolation<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultCode.ConstraintViolation, ResultMessage.ConstraintConflict<T, TIdentifier>(identifier, message));
+    public static ResultDetail NotFound<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultCode.NotFound, ResultMessage.NotFound<T, TIdentifier>(identifier, message));
 
     #endregion
 

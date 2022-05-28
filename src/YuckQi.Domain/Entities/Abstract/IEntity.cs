@@ -1,6 +1,6 @@
 ﻿namespace YuckQi.Domain.Entities.Abstract;
 
-public interface IEntity<TKey> where TKey : struct
+public interface IEntity<TIdentifier> where TIdentifier : struct
 {
-    TKey Key { get; set; }
+    TIdentifier Identifier { get; set; }
 }
