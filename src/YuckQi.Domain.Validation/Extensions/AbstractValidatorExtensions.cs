@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
@@ -17,9 +18,9 @@ public static class AbstractValidatorExtensions
         return result;
     }
 
-    public static async Task<Result<T>> GetResultAsync<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId)
+    public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId, CancellationToken cancellationToken)
     {
-        var validationResult = await validator.ValidateAsync(item);
+        var validationResult = await validator.ValidateAsync(item, cancellationToken);
         var result = BuildResult(validationResult, item, failedValidationMessageId);
 
         return result;
