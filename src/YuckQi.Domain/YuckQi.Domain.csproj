@@ -7,6 +7,7 @@
     <Version>6.1.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET library for bootstrapping a domain model project.</Description>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
