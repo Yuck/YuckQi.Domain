@@ -41,7 +41,7 @@ public readonly struct Page<T> : IPage<T>
 
     public Page(IReadOnlyCollection<T> items, Int32 total, Int32 page, Int32 size)
     {
-        Items = items ?? new List<T>();
+        Items = items;
         PageNumber = page;
         PageSize = size;
         TotalCount = total;

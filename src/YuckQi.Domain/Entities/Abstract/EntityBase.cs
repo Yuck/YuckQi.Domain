@@ -1,6 +1,8 @@
-﻿namespace YuckQi.Domain.Entities.Abstract;
+﻿using System;
 
-public abstract class EntityBase<TIdentifier> : IEntity<TIdentifier> where TIdentifier : struct
+namespace YuckQi.Domain.Entities.Abstract;
+
+public abstract class EntityBase<TIdentifier> : IEntity<TIdentifier> where TIdentifier : IEquatable<TIdentifier>
 {
-    public TIdentifier Identifier { get; set; }
+    public TIdentifier? Identifier { get; set; }
 }
