@@ -10,23 +10,23 @@ namespace YuckQi.Domain.Validation.Extensions;
 
 public static class AbstractValidatorExtensions
 {
-    public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId)
+    public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item)
     {
         var validationResult = validator.Validate(item);
-        var result = BuildResult(validationResult, item, failedValidationMessageId);
+        var result = BuildResult(validationResult, item);
 
         return result;
     }
 
-    public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId, CancellationToken cancellationToken)
+    public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, CancellationToken cancellationToken)
     {
         var validationResult = await validator.ValidateAsync(item, cancellationToken);
-        var result = BuildResult(validationResult, item, failedValidationMessageId);
+        var result = BuildResult(validationResult, item);
 
         return result;
     }
 
-    private static Result<T> BuildResult<T>(ValidationResult validationResult, T item, String failedValidationMessageId)
+    private static Result<T> BuildResult<T>(ValidationResult validationResult, T item)
     {
         if (validationResult == null)
             throw new ArgumentNullException(nameof(validationResult));
@@ -34,11 +34,11 @@ public static class AbstractValidatorExtensions
         if (validationResult.IsValid)
             return new Result<T>(item);
 
-        return new Result<T>(default, GetResultDetail(validationResult, failedValidationMessageId));
+        return new Result<T>(default, GetResultDetail(validationResult));
     }
 
-    private static IReadOnlyCollection<ResultDetail> GetResultDetail(ValidationResult result, String failedValidationMessageId)
+    private static IReadOnlyCollection<ResultDetail> GetResultDetail(ValidationResult result)
     {
-        return result?.Errors.Select(t => new ResultDetail(ResultCode.InvalidRequestDetail, new ResultMessage(failedValidationMessageId, t.ErrorMessage), t.PropertyName)).ToList();
+        return result.Errors.Select(t => new ResultDetail(new ResultMessage(t.ErrorMessage), ResultCode.InvalidRequestDetail, t.PropertyName)).ToList();
     }
 }

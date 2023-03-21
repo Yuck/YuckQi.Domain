@@ -14,37 +14,33 @@ public class ResultTests
     {
         var detail = new List<ResultDetail> { ResultDetail.NotFound<String, Int32>(1), ResultDetail.ConstraintViolation<String, Int32>(1) }.AsReadOnly();
         var result = new Result<String>(detail);
-        var hasNotFoundResultCode = result.HasResultCode(ResultCode.NotFound);
 
-        Assert.IsTrue(hasNotFoundResultCode);
+        Assert.That(result.HasResultCode(ResultCode.NotFound), Is.True);
     }
 
     [Test]
     public void Result_WithErrors_IsNotValid()
     {
-        var detail = new List<ResultDetail> { new(new ResultCode("test"), new ResultMessage("id")) };
+        var detail = new List<ResultDetail> { new("test") };
         var result = new Result<String>("test", detail);
-        var isValid = result.IsValid;
 
-        Assert.IsFalse(isValid);
+        Assert.That(result.IsValid, Is.False);
     }
 
     [Test]
     public void Result_WithNoDetail_IsValid()
     {
         var result = new Result<String>("test");
-        var isValid = result.IsValid;
 
-        Assert.IsTrue(isValid);
+        Assert.That(result.IsValid, Is.True);
     }
 
     [Test]
     public void Result_WithOnlyWarnings_IsValid()
     {
-        var detail = new List<ResultDetail> { new(new ResultCode("test"), new ResultMessage("id"), type: ResultType.Warning) };
+        var detail = new List<ResultDetail> { new(new ResultMessage("test"), type: ResultType.Warning) };
         var result = new Result<String>("test", detail);
-        var isValid = result.IsValid;
 
-        Assert.IsTrue(isValid);
+        Assert.That(result.IsValid, Is.True);
     }
 }

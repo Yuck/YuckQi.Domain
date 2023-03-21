@@ -4,29 +4,20 @@ namespace YuckQi.Domain.Validation;
 
 public readonly struct ResultMessage
 {
-    #region Properties
+    private readonly String _message;
 
-    public String Id { get; }
-    public String Text { get; }
+    public static implicit operator String(ResultMessage message) => message._message;
 
-    #endregion
+    public ResultMessage() : this(String.Empty) { }
 
-
-    #region Constructors
-
-    public ResultMessage(String id, String text = null)
+    public ResultMessage(String message)
     {
-        Id = id;
-        Text = text;
+        _message = message;
     }
 
-    #endregion
+    public static ResultMessage ConstraintConflict<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' already exists.");
 
+    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
 
-    #region Public Methods
-
-    public static ResultMessage ConstraintConflict<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new($"{ResultCode.ConstraintViolation.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{identifier}' already exists.");
-    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new($"{ResultCode.NotFound.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
-
-    #endregion
+    public override String ToString() => _message;
 }

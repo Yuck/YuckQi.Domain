@@ -6,55 +6,32 @@ namespace YuckQi.Domain.Validation;
 
 public class Result
 {
-    #region Properties
-
     public IReadOnlyCollection<ResultDetail> Detail { get; }
 
     public Boolean IsValid => Detail.All(t => t.Type != ResultType.Error);
 
-    #endregion
-
-
-    #region Constructors
-
-    public Result(IReadOnlyCollection<ResultDetail> detail)
+    public Result(IReadOnlyCollection<ResultDetail>? detail)
     {
         Detail = detail ?? Array.Empty<ResultDetail>();
     }
-
-    #endregion
 }
 
 public class Result<T> : Result
 {
-    #region Properties
-
-    public T Payload { get; }
-
-    #endregion
-
-
-    #region Constructors
+    public T? Payload { get; }
 
     public Result(ResultDetail detail) : this(new List<ResultDetail> { detail }) { }
 
     public Result(IReadOnlyCollection<ResultDetail> detail) : base(detail) { }
 
-    public Result(T payload, IReadOnlyCollection<ResultDetail> detail = null) : base(detail)
+    public Result(T? payload, IReadOnlyCollection<ResultDetail>? detail = null) : base(detail)
     {
         Payload = payload;
     }
 
-    #endregion
-
-
-    #region Public Methods
-
-    public static Result<T> ConstraintViolation<TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultDetail.ConstraintViolation<T, TIdentifier>(identifier, message));
+    public static Result<T> ConstraintViolation<TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultDetail.ConstraintViolation<T, TIdentifier>(identifier, message));
 
     public Boolean HasResultCode(ResultCode resultCode) => Detail.Any(t => t.Code == resultCode);
 
-    public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String message = null) where TIdentifier : struct => new(ResultDetail.NotFound<T, TIdentifier>(identifier, message));
-
-    #endregion
+    public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultDetail.NotFound<T, TIdentifier>(identifier, message));
 }
