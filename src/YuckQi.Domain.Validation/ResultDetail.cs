@@ -1,46 +1,24 @@
 ﻿using System;
 
-namespace YuckQi.Domain.Validation
+namespace YuckQi.Domain.Validation;
+
+public class ResultDetail
 {
-    public class ResultDetail
+    public static ResultDetail ConstraintViolation<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultMessage.ConstraintConflict<T, TIdentifier>(identifier, message), ResultCode.ConstraintViolation);
+    public static ResultDetail NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultMessage.NotFound<T, TIdentifier>(identifier, message), ResultCode.NotFound);
+
+    public ResultCode? Code { get; }
+    public ResultMessage Message { get; }
+    public String? Property { get; }
+    public ResultType Type { get; }
+
+    public ResultDetail(ResultMessage message, ResultCode? code = null, String? property = null, ResultType type = ResultType.Error)
     {
-        #region Private Members
-
-        private readonly ResultCode _code;
-
-        #endregion
-
-
-        #region Constants
-
-        public static ResultDetail ConstraintViolation<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultDetail(ResultCode.ConstraintViolation, ResultMessage.ConstraintConflict<T, TKey>(key, message));
-        public static ResultDetail NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultDetail(ResultCode.NotFound, ResultMessage.NotFound<T, TKey>(key, message));
-
-        #endregion
-
-
-        #region Properties
-
-        public ResultMessage Message { get; }
-        public String Property { get; }
-        public ResultType Type { get; }
-
-        public String Code => _code;
-
-        #endregion
-
-
-        #region Constructors
-
-        public ResultDetail(ResultCode code, ResultMessage message, String property = null, ResultType type = ResultType.Error)
-        {
-            _code = code;
-
-            Message = message;
-            Property = property;
-            Type = type;
-        }
-
-        #endregion
+        Code = code;
+        Message = message;
+        Property = property;
+        Type = type;
     }
+
+    public ResultDetail(String message, ResultCode? code = null, String? property = null, ResultType type = ResultType.Error) : this(new ResultMessage(message), code, property, type) { }
 }

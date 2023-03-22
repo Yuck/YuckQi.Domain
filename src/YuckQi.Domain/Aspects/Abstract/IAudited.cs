@@ -1,8 +1,7 @@
-﻿namespace YuckQi.Domain.Aspects.Abstract
+﻿namespace YuckQi.Domain.Aspects.Abstract;
+
+public interface IAudited<TIdentity> : ICreated, IRevised
 {
-    public interface IAudited<TIdentity> : ICreated, IRevised
-    {
-        TIdentity CreatedBy { get; set; }
-        TIdentity RevisedBy { get; set; }
-    }
+    TIdentity CreatedBy { get; set; }
+    TIdentity RevisedBy { get; set; }
 }

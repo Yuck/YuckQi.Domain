@@ -1,44 +1,50 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace YuckQi.Domain.Validation.Extensions
+namespace YuckQi.Domain.Validation.Extensions;
+
+public static class AbstractValidatorExtensions
 {
-    public static class AbstractValidatorExtensions
+    public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item)
     {
-        public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId)
-        {
-            var validationResult = validator.Validate(item);
-            var result = BuildResult(validationResult, item, failedValidationMessageId);
+        if (validator == null)
+            throw new ArgumentNullException(nameof(validator));
 
-            return result;
-        }
+        var validationResult = validator.Validate(item);
+        var result = BuildResult(validationResult, item);
 
-        public static async Task<Result<T>> GetResultAsync<T>(this AbstractValidator<T> validator, T item, String failedValidationMessageId)
-        {
-            var validationResult = await validator.ValidateAsync(item);
-            var result = BuildResult(validationResult, item, failedValidationMessageId);
+        return result;
+    }
 
-            return result;
-        }
+    public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, CancellationToken cancellationToken)
+    {
+        if (validator == null)
+            throw new ArgumentNullException(nameof(validator));
 
-        private static Result<T> BuildResult<T>(ValidationResult validationResult, T item, String failedValidationMessageId)
-        {
-            if (validationResult == null)
-                throw new ArgumentNullException(nameof(validationResult));
+        var validationResult = await validator.ValidateAsync(item, cancellationToken);
+        var result = BuildResult(validationResult, item);
 
-            if (validationResult.IsValid)
-                return new Result<T>(item);
+        return result;
+    }
 
-            return new Result<T>(default, GetResultDetail(validationResult, failedValidationMessageId));
-        }
+    private static Result<T> BuildResult<T>(ValidationResult validationResult, T item)
+    {
+        if (validationResult == null)
+            throw new ArgumentNullException(nameof(validationResult));
 
-        private static IReadOnlyCollection<ResultDetail> GetResultDetail(ValidationResult result, String failedValidationMessageId)
-        {
-            return result?.Errors.Select(t => new ResultDetail(ResultCode.InvalidRequestDetail, new ResultMessage(failedValidationMessageId, t.ErrorMessage), t.PropertyName)).ToList();
-        }
+        if (validationResult.IsValid)
+            return new Result<T>(item);
+
+        return new Result<T>(default, GetResultDetail(validationResult));
+    }
+
+    private static IReadOnlyCollection<ResultDetail> GetResultDetail(ValidationResult result)
+    {
+        return result.Errors.Select(t => new ResultDetail(new ResultMessage(t.ErrorMessage), ResultCode.InvalidRequestDetail, t.PropertyName)).ToList();
     }
 }

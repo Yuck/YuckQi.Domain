@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace YuckQi.Domain.Aspects.Abstract
+namespace YuckQi.Domain.Aspects.Abstract;
+
+public interface IActivated
 {
-    public interface IActivated
-    {
-        DateTime? ActivationMomentUtc { get; set; }
-    }
+    DateTime? ActivationMomentUtc { get; set; }
 }

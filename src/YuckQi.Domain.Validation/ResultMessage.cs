@@ -1,33 +1,23 @@
 ﻿using System;
 
-namespace YuckQi.Domain.Validation
+namespace YuckQi.Domain.Validation;
+
+public readonly struct ResultMessage
 {
-    public readonly struct ResultMessage
+    private readonly String _message;
+
+    public static implicit operator String(ResultMessage message) => message._message;
+
+    public ResultMessage() : this(String.Empty) { }
+
+    public ResultMessage(String message)
     {
-        #region Properties
-
-        public String Id { get; }
-        public String Text { get; }
-
-        #endregion
-
-
-        #region Constructors
-
-        public ResultMessage(String id, String text = null)
-        {
-            Id = id;
-            Text = text;
-        }
-
-        #endregion
-
-
-        #region Public Methods
-
-        public static ResultMessage ConstraintConflict<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultMessage($"{ResultCode.ConstraintViolation.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' already exists.");
-        public static ResultMessage NotFound<T, TKey>(TKey key, String message = null) where TKey : struct => new ResultMessage($"{ResultCode.NotFound.GetHashCode()}", message ?? $"'{typeof(T).Name}' '{key}' could not be found.");
-
-        #endregion
+        _message = message;
     }
+
+    public static ResultMessage ConstraintConflict<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' already exists.");
+
+    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
+
+    public override String ToString() => _message;
 }
