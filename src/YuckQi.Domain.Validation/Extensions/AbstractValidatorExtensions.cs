@@ -12,6 +12,9 @@ public static class AbstractValidatorExtensions
 {
     public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item)
     {
+        if (validator == null)
+            throw new ArgumentNullException(nameof(validator));
+
         var validationResult = validator.Validate(item);
         var result = BuildResult(validationResult, item);
 
@@ -20,6 +23,9 @@ public static class AbstractValidatorExtensions
 
     public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, CancellationToken cancellationToken)
     {
+        if (validator == null)
+            throw new ArgumentNullException(nameof(validator));
+
         var validationResult = await validator.ValidateAsync(item, cancellationToken);
         var result = BuildResult(validationResult, item);
 
