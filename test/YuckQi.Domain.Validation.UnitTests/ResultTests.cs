@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace YuckQi.Domain.Validation.UnitTests;
@@ -42,5 +43,35 @@ public class ResultTests
         var result = new Result<String>("test", detail);
 
         Assert.That(result.IsValid, Is.True);
+    }
+
+    [Test]
+    public void Result_Payload_IsValid()
+    {
+        var payload = Guid.NewGuid().ToString();
+        var result = new Result<String>(payload);
+
+        Assert.That(result.IsValid, Is.True);
+        Assert.That(result.Payload, Is.SameAs(payload));
+    }
+
+    [Test]
+    public void Result_ConstraintViolation_IsValid()
+    {
+        var identifier = Guid.NewGuid().ToString();
+        var result = Result<String>.ConstraintViolation(identifier);
+        var errors = result.Detail.Where(t => t.Code == ResultCode.ConstraintViolation);
+
+        Assert.That(errors.Count(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Result_NotFound_IsValid()
+    {
+        var identifier = Guid.NewGuid().ToString();
+        var result = Result<String>.NotFound(identifier);
+        var errors = result.Detail.Where(t => t.Code == ResultCode.NotFound);
+
+        Assert.That(errors.Count(), Is.EqualTo(1));
     }
 }
