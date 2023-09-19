@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin J Lambert</Authors>
-    <Version>6.4.0</Version>
+    <Version>6.4.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET library providing domain validation fundamentals.</Description>
     <Nullable>enable</Nullable>

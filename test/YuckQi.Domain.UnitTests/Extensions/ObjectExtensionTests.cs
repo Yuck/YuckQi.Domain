@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using YuckQi.Domain.Extensions;
 
@@ -14,11 +15,21 @@ public class ObjectExtensionTests
     {
         var a = new { a = 123, b = "test" };
         var b = new { a = 123, b = "hello" };
-        var differences = a.GetDifferencesByProperty(b);
+        var result = a.GetDifferencesByProperty(b);
 
-        Assert.That(differences, Has.Exactly(1).Items);
-        Assert.That(differences.Single().Key.Name, Is.EqualTo(nameof(a.b)));
-        Assert.That(differences.Single().Value.Item1, Is.EqualTo("test"));
-        Assert.That(differences.Single().Value.Item2, Is.EqualTo("hello"));
+        Assert.That(result, Has.Exactly(1).Items);
+        Assert.That(result.Single().Key.Name, Is.EqualTo(nameof(a.b)));
+        Assert.That(result.Single().Value.Item1, Is.EqualTo("test"));
+        Assert.That(result.Single().Value.Item2, Is.EqualTo("hello"));
+    }
+
+    [Test]
+    public void Object_WithSomeNonNullProperties_HasExpectedValue()
+    {
+        var a = new { a = new Int32?(), b = 1234, c = "hello", d = new Int64?(9999) };
+        var result = a.GetNonNullProperties();
+
+        Assert.That(result, Has.Exactly(3).Items);
+        Assert.That(result.Select(t => t.Name), Does.Not.Contain("a"));
     }
 }
