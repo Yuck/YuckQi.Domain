@@ -13,7 +13,13 @@ public static class ObjectExtensions
     public static Dictionary<PropertyInfo, (Object?, Object?)> GetDifferencesByProperty<T>(this T a, T b)
     {
         var properties = GetObjectProperties(typeof(T));
-        var values = properties.Select(t => new KeyValuePair<PropertyInfo, (Object?, Object?)>(t, (t.GetValue(a), t.GetValue(b))));
+        var values = properties.Select(t =>
+        {
+            var valueA = a != null ? t.GetValue(a) : null;
+            var valueB = b != null ? t.GetValue(b) : null;
+
+            return new KeyValuePair<PropertyInfo, (Object?, Object?)>(t, (valueA, valueB));
+        });
         var result = values.Where(t => ! Equals(t.Value.Item1, t.Value.Item2)).ToDictionary(t => t.Key, t => t.Value);
 
         return result;
@@ -22,7 +28,12 @@ public static class ObjectExtensions
     public static HashSet<PropertyInfo> GetNonNullProperties<T>(this T a)
     {
         var properties = GetObjectProperties(typeof(T));
-        var values = properties.Select(t => new KeyValuePair<PropertyInfo, Object?>(t, t.GetValue(a)));
+        var values = properties.Select(t =>
+        {
+            var valueA = a != null ? t.GetValue(a) : null;
+
+            return new KeyValuePair<PropertyInfo, Object?>(t, valueA);
+        });
         var result = values.Where(t => t.Value != null).Select(t => t.Key).ToHashSet();
 
         return result;
