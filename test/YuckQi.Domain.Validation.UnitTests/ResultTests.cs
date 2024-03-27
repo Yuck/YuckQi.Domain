@@ -13,7 +13,7 @@ public class ResultTests
     [Test]
     public void Result_NotFound_HasNotFoundResultCode()
     {
-        var detail = new List<ResultDetail> { ResultDetail.NotFound<String, Int32>(1), ResultDetail.ConstraintViolation<String, Int32>(1) }.AsReadOnly();
+        var detail = new List<ResultDetail> { ResultDetail.NotFound<String, Int32>(1) }.AsReadOnly();
         var result = new Result<String>(detail);
 
         Assert.That(result.HasResultCode(ResultCode.NotFound), Is.True);
@@ -22,7 +22,7 @@ public class ResultTests
     [Test]
     public void Result_WithErrors_IsNotValid()
     {
-        var detail = new List<ResultDetail> { new("test") };
+        var detail = new List<ResultDetail> { new ("test") };
         var result = new Result<String>("test", detail);
 
         Assert.That(result.IsValid, Is.False);
@@ -39,30 +39,20 @@ public class ResultTests
     [Test]
     public void Result_WithOnlyWarnings_IsValid()
     {
-        var detail = new List<ResultDetail> { new(new ResultMessage("test"), type: ResultType.Warning) };
+        var detail = new List<ResultDetail> { new (new ResultMessage("test"), type: ResultType.Warning) };
         var result = new Result<String>("test", detail);
 
         Assert.That(result.IsValid, Is.True);
     }
 
     [Test]
-    public void Result_Payload_IsValid()
+    public void Result_Content_IsValid()
     {
-        var payload = Guid.NewGuid().ToString();
-        var result = new Result<String>(payload);
+        var content = Guid.NewGuid().ToString();
+        var result = new Result<String>(content);
 
         Assert.That(result.IsValid, Is.True);
-        Assert.That(result.Payload, Is.SameAs(payload));
-    }
-
-    [Test]
-    public void Result_ConstraintViolation_IsValid()
-    {
-        var identifier = Guid.NewGuid().ToString();
-        var result = Result<String>.ConstraintViolation(identifier);
-        var errors = result.Detail.Where(t => t.Code == ResultCode.ConstraintViolation);
-
-        Assert.That(errors.Count(), Is.EqualTo(1));
+        Assert.That(result.Content, Is.SameAs(content));
     }
 
     [Test]

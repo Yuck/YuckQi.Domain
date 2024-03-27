@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace YuckQi.Domain.Validation;
 
@@ -6,11 +6,13 @@ public readonly struct ResultCode
 {
     private readonly String _code;
 
+    public static Boolean operator ==(ResultCode left, ResultCode right) => left.Equals(right);
+    public static Boolean operator !=(ResultCode left, ResultCode right) => ! left.Equals(right);
+
     public static implicit operator String(ResultCode code) => code._code;
 
-    public static readonly ResultCode ConstraintViolation = new(nameof(ConstraintViolation));
-    public static readonly ResultCode InvalidRequestDetail = new(nameof(InvalidRequestDetail));
-    public static readonly ResultCode NotFound = new(nameof(NotFound));
+    public static readonly ResultCode InvalidRequestDetail = new (nameof(InvalidRequestDetail));
+    public static readonly ResultCode NotFound = new (nameof(NotFound));
 
     public ResultCode() : this(Guid.NewGuid().ToString()) { }
 
@@ -31,5 +33,5 @@ public readonly struct ResultCode
 
     public override Int32 GetHashCode() => _code.GetHashCode();
 
-    public override String ToString() => _code;
+    public override String ToString() => this;
 }

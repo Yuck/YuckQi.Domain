@@ -4,8 +4,7 @@ namespace YuckQi.Domain.Validation;
 
 public class ResultDetail
 {
-    public static ResultDetail ConstraintViolation<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultMessage.ConstraintConflict<T, TIdentifier>(identifier, message), ResultCode.ConstraintViolation);
-    public static ResultDetail NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(ResultMessage.NotFound<T, TIdentifier>(identifier, message), ResultCode.NotFound);
+    public static ResultDetail NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (ResultMessage.NotFound<T, TIdentifier>(identifier, message), ResultCode.NotFound);
 
     public ResultCode? Code { get; }
     public ResultMessage Message { get; }

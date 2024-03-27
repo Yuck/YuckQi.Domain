@@ -15,9 +15,7 @@ public readonly struct ResultMessage
         _message = message;
     }
 
-    public static ResultMessage ConstraintConflict<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' already exists.");
+    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
 
-    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new(message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
-
-    public override String ToString() => _message;
+    public override String ToString() => this;
 }
