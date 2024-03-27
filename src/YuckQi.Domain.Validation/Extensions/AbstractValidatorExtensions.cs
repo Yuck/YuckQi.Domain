@@ -10,7 +10,7 @@ namespace YuckQi.Domain.Validation.Extensions;
 
 public static class AbstractValidatorExtensions
 {
-    public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item)
+    public static Result<T> GetResult<T>(this IValidator<T> validator, T item)
     {
         if (validator == null)
             throw new ArgumentNullException(nameof(validator));
@@ -21,7 +21,9 @@ public static class AbstractValidatorExtensions
         return result;
     }
 
-    public static async Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, CancellationToken cancellationToken)
+    public static Result<T> GetResult<T>(this AbstractValidator<T> validator, T item) => GetResult(validator as IValidator<T>, item);
+
+    public static async Task<Result<T>> GetResult<T>(this IValidator<T> validator, T item, CancellationToken cancellationToken)
     {
         if (validator == null)
             throw new ArgumentNullException(nameof(validator));
@@ -31,6 +33,8 @@ public static class AbstractValidatorExtensions
 
         return result;
     }
+
+    public static Task<Result<T>> GetResult<T>(this AbstractValidator<T> validator, T item, CancellationToken cancellationToken) => GetResult(validator as IValidator<T>, item, cancellationToken);
 
     private static Result<T> BuildResult<T>(ValidationResult validationResult, T item)
     {

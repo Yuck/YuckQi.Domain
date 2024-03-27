@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin J Lambert</Authors>
-    <Version>6.5.0</Version>
+    <Version>6.5.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>A .NET library for bootstrapping a domain model project.</Description>
     <Nullable>enable</Nullable>
