@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace YuckQi.Domain.Validation;
 
-public class Result
+public record Result
 {
     public IReadOnlyCollection<ResultDetail> Detail { get; }
 
@@ -16,8 +16,10 @@ public class Result
     }
 }
 
-public class Result<T> : Result
+public record Result<T> : Result
 {
+    public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (ResultDetail.NotFound<T, TIdentifier>(identifier, message));
+
     public T? Content { get; }
 
     public Result(ResultDetail detail) : this(new List<ResultDetail> { detail }) { }
@@ -29,7 +31,5 @@ public class Result<T> : Result
         Content = content;
     }
 
-    public Boolean HasResultCode(ResultCode resultCode) => Detail.Any(t => t.Code == resultCode);
-
-    public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (ResultDetail.NotFound<T, TIdentifier>(identifier, message));
+    public Boolean HasResultCode(ResultCode resultCode) => Detail.Any(t => t.Code?.Equals(resultCode) ?? false);
 }

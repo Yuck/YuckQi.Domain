@@ -2,7 +2,7 @@
 
 namespace YuckQi.Domain.Validation;
 
-public class ResultDetail
+public record ResultDetail
 {
     public static ResultDetail NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (ResultMessage.NotFound<T, TIdentifier>(identifier, message), ResultCode.NotFound);
 

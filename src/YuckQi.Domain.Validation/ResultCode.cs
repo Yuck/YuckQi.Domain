@@ -2,13 +2,11 @@ using System;
 
 namespace YuckQi.Domain.Validation;
 
-public readonly struct ResultCode
+public record ResultCode
 {
     private readonly String _code;
 
-    public static Boolean operator ==(ResultCode left, ResultCode right) => left.Equals(right);
-    public static Boolean operator !=(ResultCode left, ResultCode right) => ! left.Equals(right);
-
+    public static implicit operator ResultCode(String code) => new (code);
     public static implicit operator String(ResultCode code) => code._code;
 
     public static readonly ResultCode InvalidRequestDetail = new (nameof(InvalidRequestDetail));
@@ -19,16 +17,6 @@ public readonly struct ResultCode
     public ResultCode(String code)
     {
         _code = code;
-    }
-
-    public override Boolean Equals(Object? obj)
-    {
-        return obj switch
-        {
-            ResultCode other => String.Equals(this, other),
-            String other => String.Equals(this, other),
-            _ => false
-        };
     }
 
     public override Int32 GetHashCode() => _code.GetHashCode();

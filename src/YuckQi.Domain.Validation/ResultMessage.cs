@@ -2,10 +2,13 @@
 
 namespace YuckQi.Domain.Validation;
 
-public readonly struct ResultMessage
+public record ResultMessage
 {
+    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
+
     private readonly String _message;
 
+    public static implicit operator ResultMessage(String message) => new (message);
     public static implicit operator String(ResultMessage message) => message._message;
 
     public ResultMessage() : this(String.Empty) { }
@@ -14,8 +17,6 @@ public readonly struct ResultMessage
     {
         _message = message;
     }
-
-    public static ResultMessage NotFound<T, TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (message ?? $"'{typeof(T).Name}' '{identifier}' could not be found.");
 
     public override String ToString() => this;
 }

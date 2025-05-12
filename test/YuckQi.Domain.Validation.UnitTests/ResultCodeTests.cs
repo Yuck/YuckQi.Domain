@@ -32,11 +32,9 @@ public class ResultCodeTests
         var resultCodeA = new ResultCode("test");
         var resultCodeB = new ResultCode("test");
 
-        // ReSharper disable SuspiciousTypeConversion.Global
         Assert.That(resultCodeA.Equals("test"), Is.True);
         Assert.That(resultCodeA.Equals(resultCodeB), Is.True);
         Assert.That(resultCodeA.Equals(1234), Is.False);
-        // ReSharper restore SuspiciousTypeConversion.Global
     }
 
     [Test]
