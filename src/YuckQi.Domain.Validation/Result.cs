@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using YuckQi.Domain.Validation.Abstract.Interfaces;
 
 namespace YuckQi.Domain.Validation;
 
-public record Result
+public record Result : IResult
 {
     public IReadOnlyCollection<ResultDetail> Detail { get; }
 
@@ -12,17 +13,17 @@ public record Result
 
     public Result(IReadOnlyCollection<ResultDetail>? detail)
     {
-        Detail = detail ?? Array.Empty<ResultDetail>();
+        Detail = detail ?? [];
     }
 }
 
-public record Result<T> : Result
+public record Result<T> : Result, IResult<T>
 {
     public static Result<T> NotFound<TIdentifier>(TIdentifier identifier, String? message = null) where TIdentifier : IEquatable<TIdentifier> => new (ResultDetail.NotFound<T, TIdentifier>(identifier, message));
 
     public T? Content { get; }
 
-    public Result(ResultDetail detail) : this(new List<ResultDetail> { detail }) { }
+    public Result(ResultDetail detail) : this([detail]) { }
 
     public Result(IReadOnlyCollection<ResultDetail> detail) : base(detail) { }
 

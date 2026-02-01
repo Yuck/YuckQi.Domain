@@ -7,6 +7,8 @@ namespace YuckQi.Domain.Validation.UnitTests.JsonConverters
 {
     public class ResultMessageJsonConverterTests
     {
+        private readonly JsonSerializerOptions _options = new () { Converters = { new ResultMessageJsonConverter() } };
+
         public record Example(ResultMessage M);
 
         [SetUp]
@@ -17,8 +19,7 @@ namespace YuckQi.Domain.Validation.UnitTests.JsonConverters
         {
             var value = "something is wrong";
             var json = $"{{\"M\":\"{value}\"}}";
-            var options = new JsonSerializerOptions { Converters = { new ResultMessageJsonConverter() } };
-            var example = JsonSerializer.Deserialize<Example>(json, options);
+            var example = JsonSerializer.Deserialize<Example>(json, _options);
 
             Assert.That(example, Is.Not.Null);
             Assert.That(example, Is.EqualTo(new Example(new ResultMessage($"{value}"))));
@@ -29,8 +30,7 @@ namespace YuckQi.Domain.Validation.UnitTests.JsonConverters
         {
             var value = Guid.NewGuid();
             var example = new Example(new ResultMessage($"{value}"));
-            var options = new JsonSerializerOptions { Converters = { new ResultMessageJsonConverter() } };
-            var json = JsonSerializer.Serialize(example, options);
+            var json = JsonSerializer.Serialize(example, _options);
 
             Assert.That(json, Is.Not.Null);
             Assert.That(json, Is.EqualTo($"{{\"M\":\"{value}\"}}"));

@@ -17,7 +17,7 @@ namespace YuckQi.Domain.Validation.UnitTests.ResponseModels
             var type = ResultType.Warning;
             var detail = new ResultDetail(message, code, property, type);
             var content = "this is some test content";
-            var result = new Result<string>(content, Enumerable.Repeat(detail, 1).ToList());
+            var result = new Result<string>(content, [detail]);
             var options = new JsonSerializerOptions { Converters = { new ResultCodeJsonConverter(), new ResultMessageJsonConverter() } };
             var json = JsonSerializer.Serialize(result, options);
             var response = JsonSerializer.Deserialize<ApiResult<string>>(json, options);

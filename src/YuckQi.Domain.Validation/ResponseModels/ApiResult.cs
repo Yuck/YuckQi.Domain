@@ -2,12 +2,12 @@
 
 namespace YuckQi.Domain.Validation.ResponseModels
 {
-    public class ApiResult
+    public record ApiResult
     {
-        public IReadOnlyCollection<ApiResultDetail> Detail { get; set; } = new List<ApiResultDetail>();
+        public IReadOnlyCollection<ApiResultDetail> Detail { get; set; } = [];
     }
 
-    public class ApiResult<T> : ApiResult
+    public record ApiResult<T> : ApiResult
     {
         public T? Content { get; set; }
     }

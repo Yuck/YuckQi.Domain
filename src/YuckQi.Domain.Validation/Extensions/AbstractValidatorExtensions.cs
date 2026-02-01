@@ -12,8 +12,7 @@ public static class AbstractValidatorExtensions
 {
     public static Result<T> GetResult<T>(this IValidator<T> validator, T item)
     {
-        if (validator == null)
-            throw new ArgumentNullException(nameof(validator));
+        ArgumentNullException.ThrowIfNull(validator);
 
         var validationResult = validator.Validate(item);
         var result = BuildResult(validationResult, item);
@@ -25,8 +24,7 @@ public static class AbstractValidatorExtensions
 
     public static async Task<Result<T>> GetResult<T>(this IValidator<T> validator, T item, CancellationToken cancellationToken)
     {
-        if (validator == null)
-            throw new ArgumentNullException(nameof(validator));
+        ArgumentNullException.ThrowIfNull(validator);
 
         var validationResult = await validator.ValidateAsync(item, cancellationToken);
         var result = BuildResult(validationResult, item);
@@ -38,17 +36,16 @@ public static class AbstractValidatorExtensions
 
     private static Result<T> BuildResult<T>(ValidationResult validationResult, T item)
     {
-        if (validationResult == null)
-            throw new ArgumentNullException(nameof(validationResult));
+        ArgumentNullException.ThrowIfNull(validationResult);
 
         if (validationResult.IsValid)
             return new Result<T>(item);
 
         return new Result<T>(default, GetResultDetail(validationResult));
     }
-
+    
     private static IReadOnlyCollection<ResultDetail> GetResultDetail(ValidationResult result)
     {
-        return result.Errors.Select(t => new ResultDetail(new ResultMessage(t.ErrorMessage), ResultCode.InvalidRequestDetail, t.PropertyName)).ToList();
+        return [..result.Errors.Select(t => new ResultDetail(new ResultMessage(t.ErrorMessage), ResultCode.InvalidRequestDetail, t.PropertyName))];
     }
 }

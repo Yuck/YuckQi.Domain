@@ -6,7 +6,7 @@ namespace YuckQi.Domain.UnitTests.Entities.Abstract;
 
 public class EntityBaseTests
 {
-    private class Entity : EntityBase<Guid> { }
+    private record Entity : DomainEntityBase<Guid>;
 
     [SetUp]
     public void Setup() { }

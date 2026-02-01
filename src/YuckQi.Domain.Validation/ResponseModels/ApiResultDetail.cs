@@ -2,7 +2,7 @@
 
 namespace YuckQi.Domain.Validation.ResponseModels
 {
-    public class ApiResultDetail
+    public record ApiResultDetail
     {
         public String? Code { get; set; }
         public String? Message { get; set; }
